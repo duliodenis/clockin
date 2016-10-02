@@ -10,16 +10,26 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Clock_In_WatchKit_App" customModuleProvider="target">
                     <items>
+                        <label alignment="left" text="Today: 12h 44 m" id="gDF-w1-qEK"/>
                         <label alignment="center" verticalAlignment="center" textAlignment="center" numberOfLines="2" minimumScaleFactor="0.5" id="1rs-bE-3Ku">
                             <string key="text">Today
 12h 44m</string>
                             <fontDescription key="font" type="boldSystem" pointSize="35"/>
                         </label>
-                        <button width="0.90000000000000002" alignment="center" verticalAlignment="bottom" title="Clock In" id="Jcl-mC-IJH"/>
+                        <button width="0.90000000000000002" alignment="center" verticalAlignment="bottom" title="Clock In" id="Jcl-mC-IJH">
+                            <connections>
+                                <action selector="clockInOutTapped" destination="AgC-eL-Hgc" id="w6N-76-kxu"/>
+                            </connections>
+                        </button>
                         <separator alignment="left" verticalAlignment="bottom" id="lgK-vZ-w5S">
                             <color key="color" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         </separator>
                     </items>
+                    <connections>
+                        <outlet property="button" destination="Jcl-mC-IJH" id="3Bh-cS-hMN"/>
+                        <outlet property="middleLabel" destination="1rs-bE-3Ku" id="hU6-eb-S0u"/>
+                        <outlet property="topLabel" destination="gDF-w1-qEK" id="wsG-f7-TyO"/>
+                    </connections>
                 </controller>
             </objects>
         </scene>

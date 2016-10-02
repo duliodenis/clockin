@@ -11,21 +11,42 @@ import Foundation
 
 
 class InterfaceController: WKInterfaceController {
+    
+    @IBOutlet var button: WKInterfaceButton!
+    var isClockedIn = false
 
+    @IBOutlet var topLabel: WKInterfaceLabel!
+    @IBOutlet var middleLabel: WKInterfaceLabel!
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        
-        // Configure interface objects here.
+        updateUI(clockedIn: isClockedIn)
     }
     
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
+    
+    func updateUI(clockedIn:Bool) {
+        if clockedIn {
+            // THE CLOCKED IN UI
+            topLabel.setHidden(false)
+            middleLabel.setText("5m 22s")
+            button.setTitle("Clock Out")
+            button.setBackgroundColor(UIColor.init(red: 234/255, green: 76/255, blue: 136/255, alpha: 1))
+        } else {
+            // THE CLOCKED OUT UI
+            topLabel.setHidden(true)
+            middleLabel.setText("Today\n3h 22m")
+            button.setTitle("Clock In")
+            button.setBackgroundColor(UIColor.init(red: 22/255, green: 160/255, blue: 133/255, alpha: 1))
+        }
     }
     
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
-    }
 
+    @IBAction func clockInOutTapped() {
+        if isClockedIn {
+            isClockedIn = false
+        } else {
+            isClockedIn = true
+        }
+        updateUI(clockedIn: isClockedIn)
+    }
 }
