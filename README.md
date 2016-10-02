@@ -1,7 +1,7 @@
 # Clock In
 A watchOS 3 / Swift 3 WatchKit based app that helps track your billable hours on your Apple Watch.
 
-![](art/screenshot/clockin02.gif?raw=true)
+![](art/screenshot/clockin03.gif?raw=true)
 
 ### Contributing
 See [CONTRIBUTING](CONTRIBUTING.md).
