@@ -41,12 +41,51 @@ class InterfaceController: WKInterfaceController {
     }
     
 
+    // MARK: - Button Tapped
+    
     @IBAction func clockInOutTapped() {
         if isClockedIn {
-            isClockedIn = false
+            clockOut()
         } else {
-            isClockedIn = true
+            clockIn()
         }
         updateUI(clockedIn: isClockedIn)
+    }
+    
+    
+    // MARK: - Clock In and Out Functions
+    
+    func clockIn() {
+        isClockedIn = true
+        UserDefaults.standard.set(Date(), forKey: "clockedIn")
+        UserDefaults.standard.synchronize()
+    }
+    
+    
+    func clockOut() {
+        isClockedIn = false
+        if let clockedInDate = UserDefaults.standard.value(forKey: "clockedIn") as? Date {
+            
+            // Add the clock in time to the clockIns Array
+            if var clockIns = UserDefaults.standard.array(forKey: "clockIns") as? [Date] {
+                clockIns.insert(clockedInDate, at: 0)
+                UserDefaults.standard.set(clockIns, forKey: "clockIns")
+            } else {
+                UserDefaults.standard.set([clockedInDate], forKey: "clockIns")
+            }
+            
+            // Add the clock out time to the clockOuts Array
+            if var clockOuts = UserDefaults.standard.array(forKey: "clockOuts") as? [Date] {
+                clockOuts.insert(Date(), at: 0)
+                UserDefaults.standard.set(clockOuts, forKey: "clockOuts")
+            } else {
+                UserDefaults.standard.set([Date()], forKey: "clockOuts")
+            }
+            
+            // set the clockedIn time to nil
+            UserDefaults.standard.set(nil, forKey: "clockedIn")
+            
+            UserDefaults.standard.synchronize()
+        }
     }
 }
