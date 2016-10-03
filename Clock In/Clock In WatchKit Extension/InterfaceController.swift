@@ -70,6 +70,14 @@ class InterfaceController: WKInterfaceController {
                 let seconds = timeInterval % 60
                 
                 self.middleLabel.setText("\(hours)h \(minutes)m \(seconds)s")
+                
+                let totalTimeInterval = timeInterval + self.totalClockedTime()
+                
+                let totalHours = totalTimeInterval / 3600
+                let totalMinutes = (totalTimeInterval % 3600) / 60
+                let totalSeconds = totalTimeInterval % 60
+                
+                self.topLabel.setText("Today: \(totalHours)h \(totalMinutes)m \(totalSeconds)s")
             }
         }
     }
@@ -101,4 +109,26 @@ class InterfaceController: WKInterfaceController {
             UserDefaults.standard.synchronize()
         }
     }
+    
+    
+    func totalClockedTime() -> Int {
+        if var clockIns = UserDefaults.standard.array(forKey: "clockIns") as? [Date] {
+            if var clockOuts = UserDefaults.standard.array(forKey: "clockOuts") as? [Date] {
+                // having both clock in and clock outs arrays
+                // iterate through to calculate the time of each row
+                // and put into a total seconds variable
+                var totalSeconds = 0
+                
+                for index in 0..<clockIns.count {
+                    // figure out the seconds between clockin and clockout
+                    let currentSeconds = Int(clockOuts[index].timeIntervalSince(clockIns[index]))
+                    // add time to totalSeconds
+                    totalSeconds += currentSeconds
+                }
+                return totalSeconds
+            }
+        }
+        return 0
+    }
+    
 }
